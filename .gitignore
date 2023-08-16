@@ -1,3 +1,10 @@
 admin.sk
 ceramic.json
 daemon_config.json
+ceramic-indexing
+log/ceramic
+composedb
+composedb.env
+ceramic
+log
+node_modules
