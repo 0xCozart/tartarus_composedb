@@ -1,6 +1,6 @@
 type ProxyRouter @createModel(accountRelation: SINGLE, description: 'Contains obfuscated metadata and content') {
-    displayName: String(minLength:3, maxLength:50)
-    friends:  [String] @string(minLength:5, maxLength:1000) @list(maxLength: 20)
-    groupChats: [String] @string(minLength:5, maxLength:1000) @list(maxLength: 20)
-    messages: [Message]
+    displayName: String! @string(minLength:3, maxLength:50)
+    friends:  [String] @string(minLength:5, maxLength:1000) @list(maxLength: 1000)
+    rooms: [String] @string(minLength:5, maxLength:1000) @list(maxLength: 200)
+    chats: [String] @string(minLength:5, maxLength:1000) @list(maxLength: 1000)
 }
