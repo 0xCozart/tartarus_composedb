@@ -1,0 +1,10 @@
+type Message
+  @createModel(
+    accountRelation: LIST
+    description: "message metadata and content"
+  ) {
+  dateTimeCreated: DateTime!
+  sender: String!
+  recipient: String!
+  message: String @string(maxLength: 10000)
+}

@@ -2,5 +2,5 @@ type ProxyRouter @createModel(accountRelation: SINGLE, description: 'Contains ob
     displayName: String(minLength:3, maxLength:50)
     friends:  [String] @string(minLength:5, maxLength:1000) @list(maxLength: 20)
     groupChats: [String] @string(minLength:5, maxLength:1000) @list(maxLength: 20)
-    messages: [Messages]
+    messages: [Message]
 }
