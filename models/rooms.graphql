@@ -1,6 +1,7 @@
-type Rooms @createModel(accountRelation: LIST, description: 'rooms for those seeking') {
-    roomName: String! @string(minLength:3, maxLength:50)
-    key: String!
-    members: [String] @string(maxLength:50)
-    messages: [Message] @list(maxLength)
+type Rooms
+  @createModel(accountRelation: LIST, description: "rooms for those seeking") {
+  roomName: String! @string(minLength: 3, maxLength: 50)
+  key: String! @string(minLength: 3, maxLength: 200)
+  members: [String] @string(maxLength: 200) @list(maxLength: 1000)
+  messages: [String] @string(maxLength: 200) @list(maxLength: 10000)
 }
