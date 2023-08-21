@@ -1,4 +1,4 @@
-type Rooms
+type Room
   @createModel(accountRelation: LIST, description: "rooms for those seeking") {
   roomName: String! @string(minLength: 3, maxLength: 50)
   key: String! @string(minLength: 3, maxLength: 200)
