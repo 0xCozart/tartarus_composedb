@@ -1,4 +1,4 @@
-type ProxyRouter
+type TartarusProfile
   @createModel(
     accountRelation: SINGLE
     description: "Contains obfuscated metadata and content"
