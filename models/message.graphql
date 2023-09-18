@@ -2,8 +2,11 @@ type Message
   @createModel(
     accountRelation: LIST
     description: "message metadata and content"
-  ) {
-  dateTimeCreated: DateTime!
+  )
+  @createIndex(fields: [{ path: ["createdAt"] }])
+  @createIndex(fields: [{ path: ["sender"] }])
+  @createIndex(fields: [{ path: ["recipient"] }]) {
+  createdAt: DateTime!
   sender: String! @string(maxLength: 100)
   recipient: String! @string(maxLength: 100)
   message: String @string(maxLength: 10000)

@@ -2,7 +2,10 @@ type TartarusProfile
   @createModel(
     accountRelation: SINGLE
     description: "Contains obfuscated metadata and content"
-  ) {
+  )
+  @createIndex(fields: [{ path: ["friends"] }])
+  @createIndex(fields: [{ path: ["rooms"] }])
+  @createIndex(fields: [{ path: ["chats"] }]) {
   displayName: String! @string(minLength: 3, maxLength: 50)
   friends: [String]
     @string(minLength: 5, maxLength: 1000)
