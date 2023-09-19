@@ -7,7 +7,9 @@ type Message
   @createIndex(fields: [{ path: ["sender"] }])
   @createIndex(fields: [{ path: ["recipient"] }]) {
   createdAt: DateTime!
-  sender: String! @string(maxLength: 100)
+
+  sender: DID! @accountReference
+  # the recipient id can either be a user or room :D
   recipient: String! @string(maxLength: 100)
   message: String @string(maxLength: 10000)
 }
