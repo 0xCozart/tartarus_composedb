@@ -17,6 +17,12 @@
       }
     ]
   },
+  "indices": {
+    "Room": [
+      { "fields": [{ "path": ["members"] }] },
+      { "fields": [{ "path": ["messages"] }] }
+    ]
+  },
   "aliases": {},
   "views": { "account": {}, "root": {}, "models": {} }
 }

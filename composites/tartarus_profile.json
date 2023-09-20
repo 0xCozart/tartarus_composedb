@@ -17,6 +17,13 @@
       }
     ]
   },
+  "indices": {
+    "TartarusProfile": [
+      { "fields": [{ "path": ["friends"] }] },
+      { "fields": [{ "path": ["rooms"] }] },
+      { "fields": [{ "path": ["chats"] }] }
+    ]
+  },
   "aliases": {},
   "views": { "account": {}, "root": {}, "models": {} }
 }
