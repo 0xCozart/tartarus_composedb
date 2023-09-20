@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@ceramicnetwork/cli": "^2.36.0",
-    "@composedb/cli": "^0.4.5"
+    "@composedb/cli": "^0.5.1",
+    "@composedb/runtime": "^0.5.1"
   },
   "description": ""
 }
