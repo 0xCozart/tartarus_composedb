@@ -8,8 +8,8 @@ type TartarusProfile
 type Room
   @createModel(accountRelation: LIST, description: "chat rooms")
   @createIndex(fields: [{ path: ["roomName"] }])
-  @createIndex(fields: [{ path: ["memebers"] }])
-  @createIndex(fields: [{ path: ["messages"] }]) {
+  @createIndex(fields: [{ path: ["members"] }])
+  @createIndex(fields: [{ path: ["createdAt"] }]) {
   roomName: String! @string(minLength: 3, maxLength: 50)
   key: String! @string(minLength: 3, maxLength: 200)
   createdAt: DateTime!

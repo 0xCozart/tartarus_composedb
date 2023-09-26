@@ -12,8 +12,7 @@ type Message
   )
   @createIndex(fields: [{ path: ["createdAt"] }])
   @createIndex(fields: [{ path: ["sender"] }])
-  @createIndex(fields: [{ path: ["message"] }])
-  @createIndex(fields: [{ path: ["room"] }]) {
+  @createIndex(fields: [{ path: ["message"] }]) {
   createdAt: DateTime!
   sender: DID! @accountReference
   roomId: StreamID! @documentReference(model: "Room")
