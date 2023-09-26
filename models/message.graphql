@@ -1,6 +1,6 @@
 type Room
   @loadModel(
-    id: "kjzl6hvfrbw6cah3f8dtbnge3b38xss2g5twhjtvi5zovfn51fvuhomxyhp1770"
+    id: "kjzl6hvfrbw6c7hj1ixkcvz9tef4kcwyvj3m72vuydal3dhq39jcu48r5dhmybv"
   ) {
   id: ID!
 }

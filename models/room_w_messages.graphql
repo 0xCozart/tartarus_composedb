@@ -1,6 +1,6 @@
 type Message
   @loadModel(
-    id: "kjzl6hvfrbw6c9h5f5daav02v7pl8ulwbfnkkbq1yn2cv5yqusjclztq3xwfz5j"
+    id: "kjzl6hvfrbw6ca9qciixrm7e69vg8m5w107girgllhvae4a0uabmlofes75s8tm"
   ) {
   id: ID!
 }
