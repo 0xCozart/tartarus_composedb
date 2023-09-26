@@ -1,5 +1,7 @@
-| model/file       | stream id                                                       |
-| ---------------- | --------------------------------------------------------------- |
-| message          | kjzl6hvfrbw6c6urd73ailahq0t1uxipfi8rjz3gpfpcbsc90lyomtff0qtp4fd |
-| tartarus_profile | kjzl6hvfrbw6caoois5dxfdki8dht61853afifxupy9cjst17lkt40qgzrp00t8 |
-| room             | kjzl6hvfrbw6c5oy23d7tetwbj46qlhwstbca77t6c6rpd7notfm8h1kcz2nkz0 |
+| model/file               | stream id                                                       |
+| ------------------------ | --------------------------------------------------------------- |
+| room                     | kjzl6hvfrbw6c7hj1ixkcvz9tef4kcwyvj3m72vuydal3dhq39jcu48r5dhmybv |
+| message                  | kjzl6hvfrbw6c9h5f5daav02v7pl8ulwbfnkkbq1yn2cv5yqusjclztq3xwfz5j |
+| tartarus_profile         | kjzl6hvfrbw6c5azxqedlgqluxyg8aev9aktfem5li3kcwdkpff3pna35ithd3u |
+| room_w_messages          | kjzl6hvfrbw6c7hj1ixkcvz9tef4kcwyvj3m72vuydal3dhq39jcu48r5dhmybv |
+| tartraus_profile_w_rooms | kjzl6hvfrbw6c5azxqedlgqluxyg8aev9aktfem5li3kcwdkpff3pna35ithd3u |

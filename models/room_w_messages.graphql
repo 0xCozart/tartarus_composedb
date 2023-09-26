@@ -1,0 +1,13 @@
+type Message
+  @loadModel(
+    id: "kjzl6hvfrbw6c9h5f5daav02v7pl8ulwbfnkkbq1yn2cv5yqusjclztq3xwfz5j"
+  ) {
+  id: ID!
+}
+
+type Room
+  @loadModel(
+    id: "kjzl6hvfrbw6c7hj1ixkcvz9tef4kcwyvj3m72vuydal3dhq39jcu48r5dhmybv"
+  ) {
+  messages: [Message] @relationFrom(model: "Message", property: "roomId")
+}

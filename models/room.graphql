@@ -1,9 +1,18 @@
+type TartarusProfile
+  @loadModel(
+    id: "kjzl6hvfrbw6c5azxqedlgqluxyg8aev9aktfem5li3kcwdkpff3pna35ithd3u"
+  ) {
+  id: ID!
+}
+
 type Room
-  @createModel(accountRelation: LIST, description: "rooms for those seeking")
-  @createIndex(fields: [{ path: ["members"] }])
+  @createModel(accountRelation: LIST, description: "chat rooms")
+  @createIndex(fields: [{ path: ["roomName"] }])
+  @createIndex(fields: [{ path: ["memebers"] }])
   @createIndex(fields: [{ path: ["messages"] }]) {
   roomName: String! @string(minLength: 3, maxLength: 50)
   key: String! @string(minLength: 3, maxLength: 200)
-  members: [String] @string(maxLength: 200) @list(maxLength: 1000)
-  messages: [String] @string(maxLength: 200) @list(maxLength: 10000)
+  createdAt: DateTime!
+  members: [DID!] @list(minLength: 1, maxLength: 200)
+  tartarusProfileId: StreamID! @documentReference(model: "TartarusProfile")
 }

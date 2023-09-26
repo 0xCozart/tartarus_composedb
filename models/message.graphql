@@ -1,3 +1,10 @@
+type Room
+  @loadModel(
+    id: "kjzl6hvfrbw6cah3f8dtbnge3b38xss2g5twhjtvi5zovfn51fvuhomxyhp1770"
+  ) {
+  id: ID!
+}
+
 type Message
   @createModel(
     accountRelation: LIST
@@ -5,10 +12,11 @@ type Message
   )
   @createIndex(fields: [{ path: ["createdAt"] }])
   @createIndex(fields: [{ path: ["sender"] }])
-  @createIndex(fields: [{ path: ["recipient"] }]) {
+  @createIndex(fields: [{ path: ["message"] }])
+  @createIndex(fields: [{ path: ["room"] }]) {
   createdAt: DateTime!
   sender: DID! @accountReference
-  # the recipient id can either be a user or room :D
-  recipient: String! @string(maxLength: 100)
-  message: String @string(maxLength: 10000)
+  roomId: StreamID! @documentReference(model: "Room")
+  room: Room! @relationDocument(property: "roomId")
+  message: String @string(minLength: 1, maxLength: 300)
 }
