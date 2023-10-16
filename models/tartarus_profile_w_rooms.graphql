@@ -1,13 +1,13 @@
 type Room
   @loadModel(
-    id: "kjzl6hvfrbw6c6wh5oxodz6vcwroeg6ee9xpg04ht3s9q1nocopgm0zvopeoith"
+    id: "kjzl6hvfrbw6cah3f8dtbnge3b38xss2g5twhjtvi5zovfn51fvuhomxyhp1770"
   ) {
   id: ID!
 }
 
 type TartarusProfile
   @loadModel(
-    id: "kjzl6hvfrbw6c5azxqedlgqluxyg8aev9aktfem5li3kcwdkpff3pna35ithd3u"
+    id: "kjzl6hvfrbw6c9pdj2lt4zen2gx33ztcwyhvu6ygb3x6537867blkez0fi8a4nc"
   ) {
   rooms: [Room] @relationFrom(model: "Room", property: "TartarusProfileId")
 }

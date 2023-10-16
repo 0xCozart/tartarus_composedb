@@ -1,13 +1,13 @@
 type Message
   @loadModel(
-    id: "kjzl6hvfrbw6c8q1s2agyodpk2u5lv0xnycvj8vyspey2i26thvxuo8h0kmvmmj"
+    id: "kjzl6hvfrbw6c9h5f5daav02v7pl8ulwbfnkkbq1yn2cv5yqusjclztq3xwfz5j"
   ) {
   id: ID!
 }
 
 type Room
   @loadModel(
-    id: "kjzl6hvfrbw6c7hj1ixkcvz9tef4kcwyvj3m72vuydal3dhq39jcu48r5dhmybv"
+    id: "kjzl6hvfrbw6cah3f8dtbnge3b38xss2g5twhjtvi5zovfn51fvuhomxyhp1770"
   ) {
   messages: [Message] @relationFrom(model: "Message", property: "roomId")
 }

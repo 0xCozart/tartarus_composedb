@@ -4,7 +4,7 @@ type TartarusProfile
   @createIndex(fields: [{ path: ["displayName"] }]) {
   displayName: String! @string(minLength: 3, maxLength: 50)
   # Change String scalar to URI scalar
-  profilePicture: String! @string(minLength: 1, maxLength: 300)
+  profilePictureCid: String! @string(minLength: 1, maxLength: 300)
   createdAt: DateTime!
   friends: [DID!] @list(maxLength: 200)
 }
