@@ -1,7 +1,7 @@
 type TartarusProfile
   @createModel(accountRelation: SINGLE, description: "Tartarus profile")
-  @createIndex(fields: [{ path: ["friends"] }])
-  @createIndex(fields: [{ path: ["createdAt"] }]) {
+  @createIndex(fields: [{ path: ["createdAt"] }])
+  @createIndex(fields: [{ path: ["displayName"] }]) {
   displayName: String! @string(minLength: 3, maxLength: 50)
   # Change String scalar to URI scalar
   profilePicture: String! @string(minLength: 1, maxLength: 300)
