@@ -18,14 +18,12 @@ type Message
     description: "message metadata and content"
   )
   @createIndex(fields: [{ path: ["createdAt"] }])
-  @createIndex(fields: [{ path: ["sender"] }])
-  @createIndex(fields: [{ path: ["message"] }])
-  @createIndex(fields: [{ path: ["roomId"] }]) {
+  @createIndex(fields: [{ path: ["message"] }]) {
   createdAt: DateTime!
-  # edited: DateTime
+  editedAt: DateTime
   roomId: StreamID! @documentReference(model: "Room")
   room: Room! @relationDocument(property: "roomId")
   senderId: StreamID! @documentReference(model: "TartarusProfile")
   sender: TartarusProfile! @relationDocument(property: "senderId")
-  message: String @string(minLength: 1, maxLength: 300)
+  message: String! @string(minLength: 1, maxLength: 300)
 }

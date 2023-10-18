@@ -1,0 +1,506 @@
+type Query {
+  """Fetches objects given their IDs"""
+  nodes(
+    """The IDs of objects"""
+    ids: [ID!]!
+  ): [Node]!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  roomIndex(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    filters: RoomFiltersInput
+    sorting: RoomSortingInput
+  ): RoomConnection
+  roomCount(filters: RoomFiltersInput): Int!
+  tartarusProfileIndex(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    filters: TartarusProfileFiltersInput
+    sorting: TartarusProfileSortingInput
+  ): TartarusProfileConnection
+  tartarusProfileCount(filters: TartarusProfileFiltersInput): Int!
+  messageIndex(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    filters: MessageFiltersInput
+    sorting: MessageSortingInput
+  ): MessageConnection
+  messageCount(filters: MessageFiltersInput): Int!
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+type CeramicAccount implements Node {
+  """Globally unique identifier of the account (DID string)"""
+  id: ID!
+
+  """
+  Whether the Ceramic instance is currently authenticated with this account or not
+  """
+  isViewer: Boolean!
+  roomList(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    filters: RoomFiltersInput
+    sorting: RoomSortingInput
+  ): RoomConnection
+  roomListCount(filters: RoomFiltersInput): Int!
+  tartarusProfile: TartarusProfile
+  messageList(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    filters: MessageFiltersInput
+    sorting: MessageSortingInput
+  ): MessageConnection
+  messageListCount(filters: MessageFiltersInput): Int!
+}
+
+"""A connection to a list of items."""
+type RoomConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RoomEdge]
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type RoomEdge {
+  """The item at the end of the edge"""
+  node: Room
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Room implements Node {
+  id: ID!
+  key: String!
+  members: [CeramicAccount]
+  roomName: String!
+  createdAt: DateTime!
+  messages(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+
+    """Returns only documents created by the provided account"""
+    account: ID
+    filters: MessageFiltersInput
+    sorting: MessageSortingInput
+  ): MessageConnection!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""A connection to a list of items."""
+type MessageConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MessageEdge]
+}
+
+"""An edge in a connection."""
+type MessageEdge {
+  """The item at the end of the edge"""
+  node: Message
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Message implements Node {
+  id: ID!
+  roomId: CeramicStreamID!
+  message: String!
+  editedAt: DateTime
+  senderId: CeramicStreamID!
+  createdAt: DateTime!
+  room: Room
+  sender: TartarusProfile
+}
+
+"""A Ceramic Stream ID"""
+scalar CeramicStreamID @specifiedBy(url: "https://github.com/ceramicnetwork/CIP/blob/main/CIPs/CIP-59/CIP-59.md#streamid")
+
+type TartarusProfile implements Node {
+  id: ID!
+  friends: [CeramicAccount]
+  createdAt: DateTime!
+  displayName: String!
+  profilePictureCid: String!
+  rooms(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+
+    """Returns only documents created by the provided account"""
+    account: ID
+    filters: RoomFiltersInput
+    sorting: RoomSortingInput
+  ): RoomConnection!
+}
+
+input RoomFiltersInput {
+  where: RoomObjectFilterInput
+  and: [RoomFiltersInput!]
+  or: [RoomFiltersInput!]
+  not: RoomFiltersInput
+}
+
+input RoomObjectFilterInput {
+  roomName: StringValueFilterInput
+  createdAt: StringValueFilterInput
+}
+
+input StringValueFilterInput {
+  isNull: Boolean
+  equalTo: String
+  notEqualTo: String
+  in: [String!]
+  notIn: [String!]
+  lessThan: String
+  lessThanOrEqualTo: String
+  greaterThan: String
+  greaterThanOrEqualTo: String
+}
+
+input RoomSortingInput {
+  roomName: SortOrder
+  createdAt: SortOrder
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+input MessageFiltersInput {
+  where: MessageObjectFilterInput
+  and: [MessageFiltersInput!]
+  or: [MessageFiltersInput!]
+  not: MessageFiltersInput
+}
+
+input MessageObjectFilterInput {
+  message: StringValueFilterInput
+  createdAt: StringValueFilterInput
+}
+
+input MessageSortingInput {
+  message: SortOrder
+  createdAt: SortOrder
+}
+
+"""A connection to a list of items."""
+type TartarusProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [TartarusProfileEdge]
+}
+
+"""An edge in a connection."""
+type TartarusProfileEdge {
+  """The item at the end of the edge"""
+  node: TartarusProfile
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input TartarusProfileFiltersInput {
+  where: TartarusProfileObjectFilterInput
+  and: [TartarusProfileFiltersInput!]
+  or: [TartarusProfileFiltersInput!]
+  not: TartarusProfileFiltersInput
+}
+
+input TartarusProfileObjectFilterInput {
+  createdAt: StringValueFilterInput
+  displayName: StringValueFilterInput
+}
+
+input TartarusProfileSortingInput {
+  createdAt: SortOrder
+  displayName: SortOrder
+}
+
+type Mutation {
+  createRoom(input: CreateRoomInput!): CreateRoomPayload
+  updateRoom(input: UpdateRoomInput!): UpdateRoomPayload
+  createTartarusProfile(input: CreateTartarusProfileInput!): CreateTartarusProfilePayload
+  updateTartarusProfile(input: UpdateTartarusProfileInput!): UpdateTartarusProfilePayload
+  createMessage(input: CreateMessageInput!): CreateMessagePayload
+  updateMessage(input: UpdateMessageInput!): UpdateMessagePayload
+}
+
+type CreateRoomPayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: Room!
+  clientMutationId: String
+}
+
+input CreateRoomInput {
+  content: RoomInput!
+  clientMutationId: String
+}
+
+input RoomInput {
+  key: String!
+  members: [DID]
+  roomName: String!
+  createdAt: DateTime!
+}
+
+"""
+A field whose value conforms to the standard DID format as specified in did-core: https://www.w3.org/TR/did-core/.
+"""
+scalar DID @specifiedBy(url: "https://www.w3.org/TR/did-core/")
+
+type UpdateRoomPayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: Room!
+  clientMutationId: String
+}
+
+input UpdateRoomInput {
+  id: ID!
+  content: PartialRoomInput!
+  options: UpdateOptionsInput
+  clientMutationId: String
+}
+
+input PartialRoomInput {
+  key: String
+  members: [DID]
+  roomName: String
+  createdAt: DateTime
+}
+
+input UpdateOptionsInput {
+  """
+  Fully replace the document contents instead of performing a shallow merge
+  """
+  replace: Boolean = false
+
+  """Only perform mutation if the document matches the provided version"""
+  version: CeramicCommitID
+}
+
+"""A Ceramic Commit ID"""
+scalar CeramicCommitID @specifiedBy(url: "https://github.com/ceramicnetwork/CIP/blob/main/CIPs/CIP-59/CIP-59.md#commitid")
+
+type CreateTartarusProfilePayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: TartarusProfile!
+  clientMutationId: String
+}
+
+input CreateTartarusProfileInput {
+  content: TartarusProfileInput!
+  clientMutationId: String
+}
+
+input TartarusProfileInput {
+  friends: [DID]
+  createdAt: DateTime!
+  displayName: String!
+  profilePictureCid: String!
+}
+
+type UpdateTartarusProfilePayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: TartarusProfile!
+  clientMutationId: String
+}
+
+input UpdateTartarusProfileInput {
+  id: ID!
+  content: PartialTartarusProfileInput!
+  options: UpdateOptionsInput
+  clientMutationId: String
+}
+
+input PartialTartarusProfileInput {
+  friends: [DID]
+  createdAt: DateTime
+  displayName: String
+  profilePictureCid: String
+}
+
+type CreateMessagePayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: Message!
+  clientMutationId: String
+}
+
+input CreateMessageInput {
+  content: MessageInput!
+  clientMutationId: String
+}
+
+input MessageInput {
+  roomId: CeramicStreamID!
+  message: String!
+  editedAt: DateTime
+  senderId: CeramicStreamID!
+  createdAt: DateTime!
+}
+
+type UpdateMessagePayload {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Account currently authenticated on the Ceramic instance, if set"""
+  viewer: CeramicAccount
+  document: Message!
+  clientMutationId: String
+}
+
+input UpdateMessageInput {
+  id: ID!
+  content: PartialMessageInput!
+  options: UpdateOptionsInput
+  clientMutationId: String
+}
+
+input PartialMessageInput {
+  roomId: CeramicStreamID
+  message: String
+  editedAt: DateTime
+  senderId: CeramicStreamID
+  createdAt: DateTime
+}
