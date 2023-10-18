@@ -1,3 +1,10 @@
+type TartarusProfile
+  @loadModel(
+    id: "kjzl6hvfrbw6c9pdj2lt4zen2gx33ztcwyhvu6ygb3x6537867blkez0fi8a4nc"
+  ) {
+  id: ID!
+}
+
 type Room
   @loadModel(
     id: "kjzl6hvfrbw6cah3f8dtbnge3b38xss2g5twhjtvi5zovfn51fvuhomxyhp1770"
@@ -16,8 +23,9 @@ type Message
   @createIndex(fields: [{ path: ["roomId"] }]) {
   createdAt: DateTime!
   # edited: DateTime
-  sender: DID! @accountReference
   roomId: StreamID! @documentReference(model: "Room")
   room: Room! @relationDocument(property: "roomId")
+  senderId: StreamID! @documentReference(model: "TartarusProfile")
+  sender: TartarusProfile! @relationDocument(property: "senderId")
   message: String @string(minLength: 1, maxLength: 300)
 }
