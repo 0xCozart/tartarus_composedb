@@ -1,15 +1,27 @@
 {
   "models": {
     "Room": {
+      "interface": false,
+      "implements": [],
       "id": "kjzl6hvfrbw6cah3f8dtbnge3b38xss2g5twhjtvi5zovfn51fvuhomxyhp1770",
       "accountRelation": { "type": "list" }
     },
     "TartarusProfile": {
+      "interface": false,
+      "implements": [],
       "id": "kjzl6hvfrbw6c9pdj2lt4zen2gx33ztcwyhvu6ygb3x6537867blkez0fi8a4nc",
       "accountRelation": { "type": "single" }
     },
     "Message": {
+      "interface": false,
+      "implements": [],
       "id": "kjzl6hvfrbw6c9qzu96sd94o3yekw6fe6v9zr6mof7cieesmdyih16sbxpu9qsr",
+      "accountRelation": { "type": "list" }
+    },
+    "PublicEncryptionDID": {
+      "interface": false,
+      "implements": [],
+      "id": "kjzl6hvfrbw6ca1t6q39ympc7qoij1m9kb5ckn3ribr7qqhi7a03axr3ptlqmuh",
       "accountRelation": { "type": "list" }
     }
   },
@@ -21,8 +33,8 @@
         "required": false,
         "item": { "type": "did", "required": false }
       },
-      "roomName": { "type": "string", "required": true, "indexed": true },
-      "createdAt": { "type": "datetime", "required": true, "indexed": true },
+      "roomName": { "type": "string", "required": true },
+      "createdAt": { "type": "datetime", "required": true },
       "messages": {
         "type": "view",
         "viewType": "relation",
@@ -39,8 +51,8 @@
         "required": false,
         "item": { "type": "did", "required": false }
       },
-      "createdAt": { "type": "datetime", "required": true, "indexed": true },
-      "displayName": { "type": "string", "required": true, "indexed": true },
+      "createdAt": { "type": "datetime", "required": true },
+      "displayName": { "type": "string", "required": true },
       "profilePictureCid": { "type": "string", "required": true },
       "rooms": {
         "type": "view",
@@ -54,10 +66,10 @@
     },
     "Message": {
       "roomId": { "type": "streamid", "required": true },
-      "message": { "type": "string", "required": true, "indexed": true },
+      "message": { "type": "string", "required": true },
       "editedAt": { "type": "datetime", "required": false },
       "senderId": { "type": "streamid", "required": true },
-      "createdAt": { "type": "datetime", "required": true, "indexed": true },
+      "createdAt": { "type": "datetime", "required": true },
       "room": {
         "type": "view",
         "viewType": "relation",
@@ -76,12 +88,20 @@
           "property": "senderId"
         }
       }
+    },
+    "PublicEncryptionDID": {
+      "PublicEncryptionDID": { "type": "did", "required": true },
+      "author": { "type": "view", "viewType": "documentAccount" }
     }
   },
   "enums": {},
   "accountData": {
     "roomList": { "type": "connection", "name": "Room" },
     "tartarusProfile": { "type": "node", "name": "TartarusProfile" },
-    "messageList": { "type": "connection", "name": "Message" }
+    "messageList": { "type": "connection", "name": "Message" },
+    "publicEncryptionDidList": {
+      "type": "connection",
+      "name": "PublicEncryptionDID"
+    }
   }
 }

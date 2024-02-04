@@ -1,4 +1,8 @@
-type PublicEncryptionDID @createModel(accountRelation:List, description: "A data model to store encryption DIDs") {
-    author: DID! @documentAccount
-    PublicEncryptionDID
+type PublicEncryptionDID
+  @createModel(
+    accountRelation: LIST
+    description: "A data model to store encryption DIDs"
+  ) {
+  author: DID! @documentAccount
+  PublicEncryptionDID: DID!
 }
