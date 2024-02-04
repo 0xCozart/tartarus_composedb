@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ceramicnetwork/cli": "^2.36.0",
-    "@composedb/cli": "^0.5.1",
-    "@composedb/runtime": "^0.5.1"
+    "@ceramicnetwork/cli": "^4.1.0",
+    "@composedb/cli": "^0.6.1",
+    "@composedb/runtime": "^0.6.0"
   },
   "description": ""
 }
